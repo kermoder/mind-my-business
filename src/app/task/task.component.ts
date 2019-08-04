@@ -5,7 +5,7 @@ import { DataService } from './../data.service';
 
 /*
   todo: 
-  0. add to GitHub
+  0. OK add to GitHub
   1. OK load data via an ajax call.
   2. encrypt/decrypt data dynamically
   3. create apache mod.
