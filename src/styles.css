@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+	margin: 0;
+}
+
+main {
+	margin: 2em;
+	font-family: Roboto,"Helvetica Neue",sans-serif;
+    /* font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif; */
+}
+
+main div.title {
+	font-size: 1.6em;
+}
+
+.fill-space {
+	flex: 1 1 auto;
+}
+
+.toolbar-right {
+	margin-right: 4em;
+}
+
+.toolbar-right a {
+	font-variant: small-caps; 
+	color: #DDD;
+	text-decoration: none;
+}

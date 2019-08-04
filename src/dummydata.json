@@ -1,0 +1,36 @@
+[
+	{
+		"name": "Dummy info",
+		"children": [
+			{"name": "Addresses"},
+			{"name": "Creds",
+ 			 "children": [
+				 {"name": "site A",
+				  "value": "sadasd"},
+				 {"name": "site B",
+				  "value": "zxczxvxv"},
+				 {"name": "site C",
+				  "value": "adfyhdfg"}
+			 ]},
+			{"name": "Things to remember"}
+		]
+	},
+	{
+		"name": "To do",
+		"children": [
+			{
+				"name": "Practical",
+				"children": [
+					{"name": "Home"},
+					{"name": "Career"}
+				]
+			}, {
+				"name": "Creative",
+				"children": [
+					{"name": "Ptruth"},
+					{"name": "Cog"}
+				]
+			}
+		]
+	}
+]

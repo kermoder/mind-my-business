@@ -1,0 +1,16 @@
+
+.task-tree-invisible {
+  display: none;
+}
+
+.task-tree ul,
+.task-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.mat-tree-node {
+	min-height: 1.7em;
+	max-height: 1.7em;
+}
