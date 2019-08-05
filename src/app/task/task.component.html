@@ -5,6 +5,18 @@
       <!-- <\!-- use a disabled button to provide padding for tree leaf -\-> -->
       <button mat-icon-button disabled></button>
       {{node.name}}
+	  <span class="commands">
+        <button mat-icon-button (click)=create()>
+		  <i class="material-icons">
+			add_circle_outline
+		  </i>
+		</button>
+		<button mat-icon-button (click)=edit() >
+		  <i class="material-icons">
+			edit
+		  </i>
+		</button>
+	  </span>
     </li>
   </mat-tree-node>
   <!-- This is the tree node template for expandable nodes -->
@@ -18,6 +30,18 @@
           </mat-icon>
         </button>
         {{node.name}}
+		<span class="commands">
+          <button mat-icon-button (click)=create()>
+			<i class="material-icons">
+			  add_circle_outline
+			</i>
+		  </button>
+		  <button mat-icon-button (click)=edit() >
+			<i class="material-icons">
+			  edit
+			</i>
+		  </button>
+		</span>
       </div>
       <ul [class.task-tree-invisible]="!treeControl.isExpanded(node)">
         <ng-container matTreeNodeOutlet></ng-container>

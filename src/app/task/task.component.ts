@@ -1,62 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
-import { DataService } from './../data.service';
+import { DataService } from '../data.service';
+import { DlgComponent } from '../dlg/dlg.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /*
   todo: 
   0. OK add to GitHub
   1. OK load data via an ajax call.
   2. encrypt/decrypt data dynamically
-  3. create apache mod.
-  4. get drag and drop working
-  5. get save working
-  6. deploy the whole mess.
+  3. add functionality to create / delete nodes
+  4. create apache mod.
+  5. get drag and drop working
+  6. get save working
+  7. deploy the whole mess.
 */
 
-
-interface TaskNode {
+export interface TaskNode {
   name: string;
   children?: TaskNode[];
   value?: string;
 }
-
-const TMP_DATA: TaskNode[] = [
-	{
-		name: 'Information',
-		children: [
-			{name: 'Addresses'},
-			{name: 'Creds',
- 			 children: [
-				 {name: 'site A',
-				  value: 'sadasd'},
-				 {name: 'site B',
-				  value: 'zxczxvxv'},
-				 {name: 'site C',
-				  value: 'adfyhdfg'}
-			 ]},
-			{name: 'Things to remember'},
-		]
-	}, 
-	{
-		name: 'To do',
-		children: [
-			{
-				name: 'Practical',
-				children: [
-					{name: 'Home'},
-					{name: 'Career'},
-				]
-			}, {
-				name: 'Creative',
-				children: [
-					{name: 'Ptruth'},
-					{name: 'Cog'},
-				]
-			},
-		]
-	},
-];
 
 @Component({
 	selector: 'app-task',
@@ -68,7 +33,7 @@ export class TaskComponent implements OnInit {
 	dataSource = new MatTreeNestedDataSource<TaskNode>();
 	dataService: DataService;
 
-	constructor(private ds : DataService) { 
+	constructor(private ds : DataService, public dialog: MatDialog) { 
 		this.dataService = ds;
 	}
 
@@ -78,6 +43,24 @@ export class TaskComponent implements OnInit {
 		});
 	}
 
+	edit() {
+		const dialogRef = this.dialog.open(DlgComponent, {
+			width: '40vw', height: '50vh',
+			data: {name: 'a name', value: 'a value'}
+		});
+		
+		// dialogRef.afterClosed().subscribe(result => {
+		// 	console.log('The dialog was closed');
+		// 	this.animal = result;
+		// });
+
+	}
+
+	create() {
+
+	}
+
 	hasChild = (_: number, node: TaskNode) => !!node.children && node.children.length > 0;
 
 }
+
