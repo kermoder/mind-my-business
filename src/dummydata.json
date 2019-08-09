@@ -1,34 +1,63 @@
 [
 	{
+		"guid": "028e-a961-2937",
 		"name": "Dummy info",
 		"children": [
-			{"name": "Addresses"},
-			{"name": "Creds",
- 			 "children": [
-				 {"name": "site A",
-				  "value": "sadasd"},
-				 {"name": "site B",
-				  "value": "zxczxvxv"},
-				 {"name": "site C",
-				  "value": "adfyhdfg"}
-			 ]},
-			{"name": "Things to remember"}
+			{
+				"guid": "53f8-f182-4a66",
+				"name": "Addresses"
+			},
+			{
+				"guid": "132b-aca7-01af",
+				"name": "Creds",
+ 				"children": [
+					{
+						"guid": "3544-b201-50f1",
+						"name": "site A",
+						"value": "sadasd"},
+					{
+						"guid": "3725-a9b9-3ffe",
+						"name": "site B",
+						"value": "zxczxvxv"},
+					{
+						"guid": "e742-024c-42ce",
+						"name": "site C",
+						"value": "adfyhdfg"}
+				]},
+			{
+				"guid": "7586-2c76-31d9",
+				"name": "Things to remember"
+			}
 		]
 	},
 	{
+		"guid": "17b6-72fe-f1e8",
 		"name": "To do",
 		"children": [
 			{
+				"guid": "5b7e-a2b1-d113",
 				"name": "Practical",
 				"children": [
-					{"name": "Home"},
-					{"name": "Career"}
+					{
+						"guid": "cbea-0179-a0af",
+						"name": "Home"},
+					{
+						"guid": "1ed8-d9a2-854e",
+						"name": "Career"
+					}
 				]
 			}, {
+				"guid": "5e06-eedd-e87e",				
 				"name": "Creative",
 				"children": [
-					{"name": "Ptruth"},
-					{"name": "Cog"}
+					{
+						"guid": "678f-5f69-59c0",
+						"name": "Ptruth"
+					},
+					{
+						"guid": "d016-a5e2-da79",
+						"name": "Cog"
+					}
 				]
 			}
 		]

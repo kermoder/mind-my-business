@@ -18,9 +18,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 */
 
 export interface TaskNode {
-  name: string;
-  children?: TaskNode[];
-  value?: string;
+	guid: string;
+	name: string;
+	children?: TaskNode[];
+	value?: string;
 }
 
 @Component({
@@ -35,25 +36,28 @@ export class TaskComponent implements OnInit {
 
 	constructor(private ds : DataService, public dialog: MatDialog) { 
 		this.dataService = ds;
+		// for (var i=0; i<10; i++){
+		// 	console.log(this.dataService.guid())
+		// }
 	}
 
 	ngOnInit() {
 		this.ds.getContent().subscribe((data: TaskNode[]) => {
 			this.dataSource.data = data;
+			this.ds.data = data;
 		});
 	}
 
-	edit() {
+	edit(id: string) {
+		var n = this.dataService.name(id);
+		var v = this.dataService.value(id);
 		const dialogRef = this.dialog.open(DlgComponent, {
 			width: '40vw', height: '50vh',
-			data: {name: 'a name', value: 'a value'}
+			data: {guid: id, name: n, value: v}
 		});
-		
-		// dialogRef.afterClosed().subscribe(result => {
-		// 	console.log('The dialog was closed');
-		// 	this.animal = result;
-		// });
-
+		dialogRef.afterClosed().subscribe(result => {
+			//console.log('The dialog was closed', result);
+		});
 	}
 
 	create() {

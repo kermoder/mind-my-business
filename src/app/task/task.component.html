@@ -11,7 +11,7 @@
 			add_circle_outline
 		  </i>
 		</button>
-		<button mat-icon-button (click)=edit() >
+		<button mat-icon-button (click)=edit(node.guid) >
 		  <i class="material-icons">
 			edit
 		  </i>
@@ -36,7 +36,7 @@
 			  add_circle_outline
 			</i>
 		  </button>
-		  <button mat-icon-button (click)=edit() >
+		  <button mat-icon-button (click)=edit(node.guid) >
 			<i class="material-icons">
 			  edit
 			</i>

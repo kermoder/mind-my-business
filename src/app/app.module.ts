@@ -8,7 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 import { DlgComponent } from './dlg/dlg.component';
@@ -26,7 +27,9 @@ import { DlgComponent } from './dlg/dlg.component';
 		MatIconModule,
 		MatButtonModule,
 		MatDialogModule,
+		MatFormFieldModule,
 		MatToolbarModule,
+		FormsModule,
 		DragDropModule,
 		HttpClientModule
 	],
