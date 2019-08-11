@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ApplicationRef } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { DataService } from '../data.service';
 import { DlgComponent } from '../dlg/dlg.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 /*
   todo: 
   0. OK add to GitHub
   1. OK load data via an ajax call.
   2. encrypt/decrypt data dynamically
-  3. add functionality to create / delete nodes
+  3. add functionality to create / edit / delete nodes
   4. create apache mod.
   5. get drag and drop working
   6. get save working
@@ -34,7 +35,9 @@ export class TaskComponent implements OnInit {
 	dataSource = new MatTreeNestedDataSource<TaskNode>();
 	dataService: DataService;
 
-	constructor(private ds : DataService, public dialog: MatDialog) { 
+	constructor(private ds : DataService, 
+				public dialog: MatDialog,
+				private appRef: ApplicationRef) { 
 		this.dataService = ds;
 		// for (var i=0; i<10; i++){
 		// 	console.log(this.dataService.guid())
@@ -49,6 +52,8 @@ export class TaskComponent implements OnInit {
 	}
 
 	edit(id: string) {
+		var theService = this.ds;
+		var theSource = this.dataSource;
 		var n = this.dataService.name(id);
 		var v = this.dataService.value(id);
 		const dialogRef = this.dialog.open(DlgComponent, {
@@ -56,12 +61,19 @@ export class TaskComponent implements OnInit {
 			data: {guid: id, name: n, value: v}
 		});
 		dialogRef.afterClosed().subscribe(result => {
-			//console.log('The dialog was closed', result);
+			//theSource.data = theService.data;
+			this.dataSource = this.dataService.data;
+			this.appRef.tick();
+			console.log('The dialog was closed', result);
 		});
 	}
 
 	create() {
 
+	}
+
+	drop(event: CdkDragDrop<string[]>) {
+		//moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
 	}
 
 	hasChild = (_: number, node: TaskNode) => !!node.children && node.children.length > 0;

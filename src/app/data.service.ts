@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { TaskNode } from './task/task.component';
 
 @Injectable({
 	providedIn: 'root'
@@ -26,34 +27,43 @@ export class DataService {
 	}
 
 	name(id: string) : string {
-		var o = this.taskNode(id, this.data);
+		var o = this.taskNode(id, this.data, false);
 		if (o !== null)
 			return o.name;
 		return "";
 	}
 
-	save(tn : TaskNode) : void {
-		var existing = this.taskNode(tn.guid, this.data);
-		existing.name = tn.name;
-		existing.value = tn.value;
-	}
-
 	value(id: string) : string {
-		var o = this.taskNode(id, this.data);
+		var o = this.taskNode(id, this.data, false);
 		if (o !== null)
 			return o.value;
 		return "";
 	}
 
-	taskNode (id: string, arr: any[]) : any {
+	save(tn : TaskNode) : void {
+		var existing = this.taskNode(tn.guid, this.data, false);
+		existing.name = tn.name;
+		existing.value = tn.value;
+	}
+
+	deleteNode(tn : TaskNode) : void {
+		this.taskNode(tn.guid, this.data, true);
+	}
+
+	taskNode (id: string, arr: any[], deleteIt: boolean) : any {
 		if (arr === undefined)
 			return null;
 		for (var i=0; i<arr.length; i++){
 			var o = arr[i];
-			if (o.guid === id)
+			if (o.guid === id) {
+				if (deleteIt){
+					arr.splice(i, 1);
+					return null;
+				}
 				return o;
+			}
 			if (o.children !== null){
-				o = this.taskNode(id, o.children);
+				o = this.taskNode(id, o.children, deleteIt); //recur
 				if (o !== null)
 					return o;
 			}
