@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ApplicationRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { DataService } from '../data.service';
@@ -36,8 +36,7 @@ export class TaskComponent implements OnInit {
 	dataService: DataService;
 
 	constructor(private ds : DataService, 
-				public dialog: MatDialog,
-				private appRef: ApplicationRef) { 
+				public dialog: MatDialog) { 
 		this.dataService = ds;
 		// for (var i=0; i<10; i++){
 		// 	console.log(this.dataService.guid())
@@ -45,15 +44,13 @@ export class TaskComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.ds.getContent().subscribe((data: TaskNode[]) => {
+		this.dataService.getContent().subscribe((data: TaskNode[]) => {
 			this.dataSource.data = data;
-			this.ds.data = data;
+			this.ds.setData(data);
 		});
 	}
 
 	edit(id: string) {
-		var theService = this.ds;
-		var theSource = this.dataSource;
 		var n = this.dataService.name(id);
 		var v = this.dataService.value(id);
 		const dialogRef = this.dialog.open(DlgComponent, {
@@ -61,10 +58,9 @@ export class TaskComponent implements OnInit {
 			data: {guid: id, name: n, value: v}
 		});
 		dialogRef.afterClosed().subscribe(result => {
-			//theSource.data = theService.data;
-			this.dataSource = this.dataService.data;
-			this.appRef.tick();
-			console.log('The dialog was closed', result);
+			this.dataSource.data = [];
+			this.dataSource.data = this.dataService.data;
+			console.log('The dialog was closed, right?', this.dataSource.data);
 		});
 	}
 

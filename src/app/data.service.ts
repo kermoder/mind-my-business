@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { TaskNode } from './task/task.component';
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class DataService {
 	contentUrl = 'http://localhost:4200/dummydata.json';
-	data: any;
+	data: any[];
+	contentObs : Observable <any>;
 
 	constructor(private http: HttpClient) { }
-	
 
-	getContent() {
-		this.data = this.http.get(this.contentUrl);
-		return this.data;
+	getContent() : Observable <any>{
+		return this.http.get(this.contentUrl);
+	}
+
+	setData(arr : any[]) {
+		this.data = arr;
 	}
 
 	guidPart() : string {
@@ -26,7 +32,7 @@ export class DataService {
 		return this.guidPart() + "-" + this.guidPart() + "-" + this.guidPart();
 	}
 
-	name(id: string) : string {
+	name(id: string) : string {		
 		var o = this.taskNode(id, this.data, false);
 		if (o !== null)
 			return o.name;
@@ -57,6 +63,7 @@ export class DataService {
 			var o = arr[i];
 			if (o.guid === id) {
 				if (deleteIt){
+					console.log("deleting ", o.name);
 					arr.splice(i, 1);
 					return null;
 				}
@@ -70,6 +77,5 @@ export class DataService {
 		}
 		return null;
 	}
-
 
 }

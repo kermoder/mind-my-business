@@ -4,7 +4,11 @@
 	<mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
       <li class="mat-tree-node" cdkDrag>
 		<!-- <\!-- use a disabled button to provide padding for tree leaf -\-> -->
-		<button mat-icon-button disabled></button>
+		<button mat-icon-button disabled>
+		  <i class="material-icons">
+			album
+		  </i>
+		</button>
 		{{node.name}}
 		<span class="commands">
           <button mat-icon-button (click)=create()>
@@ -27,7 +31,8 @@
           <button mat-icon-button matTreeNodeToggle
                   [attr.aria-label]="'toggle ' + node.name">
 			<mat-icon class="mat-icon-rtl-mirror">
-              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->
+              {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
 			</mat-icon>
           </button>
           {{node.name}}
