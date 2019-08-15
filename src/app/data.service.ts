@@ -52,6 +52,17 @@ export class DataService {
 		existing.value = tn.value;
 	}
 
+	addChild(tn : TaskNode) : void {
+		console.log("adding child");
+		var existing = this.taskNode(tn.guid, this.data, false);
+		var tnNew = Object.assign({}, tn);
+		tnNew.guid = this.guid();
+		tnNew.children = [];
+		if (existing.children === undefined )
+			existing.children = [];
+		existing.children.push(tnNew);
+	}
+
 	deleteNode(tn : TaskNode) : void {
 		this.taskNode(tn.guid, this.data, true);
 	}

@@ -18,11 +18,20 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   7. deploy the whole mess.
 */
 
-export interface TaskNode {
+export class TaskNode {
 	guid: string;
 	name: string;
 	children?: TaskNode[];
 	value?: string;
+
+	copyTn(tn: TaskNode) : TaskNode {
+		var tnNew = new TaskNode();
+		tnNew.name = tn.name;
+		tnNew.value = tn.value;
+		tnNew.children = [];
+		return tnNew;
+	}
+
 }
 
 @Component({
@@ -38,6 +47,7 @@ export class TaskComponent implements OnInit {
 	constructor(private ds : DataService, 
 				public dialog: MatDialog) { 
 		this.dataService = ds;
+		// generate a few guids
 		// for (var i=0; i<10; i++){
 		// 	console.log(this.dataService.guid())
 		// }
@@ -58,14 +68,10 @@ export class TaskComponent implements OnInit {
 			data: {guid: id, name: n, value: v}
 		});
 		dialogRef.afterClosed().subscribe(result => {
-			this.dataSource.data = [];
-			this.dataSource.data = this.dataService.data;
+			this.dataSource.data = [];                     // need this to coax rerendering
+			this.dataSource.data = this.dataService.data;  // of the html.
 			console.log('The dialog was closed, right?', this.dataSource.data);
 		});
-	}
-
-	create() {
-
 	}
 
 	drop(event: CdkDragDrop<string[]>) {
