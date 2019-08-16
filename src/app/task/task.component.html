@@ -1,12 +1,11 @@
 
-<ul cdkDropList>
+<ul>
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="task-tree">
 	<mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
       <li class="mat-tree-node" cdkDrag>
-		<!-- <\!-- use a disabled button to provide padding for tree leaf -\-> -->
 		<button mat-icon-button disabled>
 		  <i class="material-icons">
-			album
+			crop_7_5
 		  </i>
 		</button>
 		{{node.name}}
@@ -16,6 +15,7 @@
 			  edit
 			</i>
 		  </button>
+		  <input type="checkbox" (click)="toggle(node.guid)">
 		</span>
       </li>
 	</mat-tree-node>
@@ -26,7 +26,6 @@
           <button mat-icon-button matTreeNodeToggle
                   [attr.aria-label]="'toggle ' + node.name">
 			<mat-icon class="mat-icon-rtl-mirror">
-              <!-- {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}} -->
               {{treeControl.isExpanded(node) ? 'remove' : 'add'}}
 			</mat-icon>
           </button>
@@ -37,9 +36,10 @@
 				edit
 			  </i>
 			</button>
+			<input type="checkbox" (click)="toggle(node.guid)">
 		  </span>
 		</div>
-		<ul [class.task-tree-invisible]="!treeControl.isExpanded(node)" cdkDropList>
+		<ul [class.task-tree-invisible]="!treeControl.isExpanded(node)">
           <ng-container matTreeNodeOutlet></ng-container>
 		</ul>
       </li>

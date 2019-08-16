@@ -5,34 +5,20 @@ import { DataService } from '../data.service';
 import { DlgComponent } from '../dlg/dlg.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TaskNode } from '../task-node';
+
 
 /*
   todo: 
   0. OK add to GitHub
   1. OK load data via an ajax call.
   2. encrypt/decrypt data dynamically
-  3. add functionality to create / edit / delete nodes
+  3. OK add functionality to create / edit / delete nodes
   4. create apache mod.
   5. get drag and drop working
   6. get save working
   7. deploy the whole mess.
 */
-
-export class TaskNode {
-	guid: string;
-	name: string;
-	children?: TaskNode[];
-	value?: string;
-
-	copyTn(tn: TaskNode) : TaskNode {
-		var tnNew = new TaskNode();
-		tnNew.name = tn.name;
-		tnNew.value = tn.value;
-		tnNew.children = [];
-		return tnNew;
-	}
-
-}
 
 @Component({
 	selector: 'app-task',
@@ -43,10 +29,12 @@ export class TaskComponent implements OnInit {
 	treeControl = new NestedTreeControl<TaskNode>(node => node.children);
 	dataSource = new MatTreeNestedDataSource<TaskNode>();
 	dataService: DataService;
+	numberChecked: number;
 
 	constructor(private ds : DataService, 
 				public dialog: MatDialog) { 
 		this.dataService = ds;
+		this.numberChecked = 0;
 		// generate a few guids
 		// for (var i=0; i<10; i++){
 		// 	console.log(this.dataService.guid())
@@ -70,12 +58,20 @@ export class TaskComponent implements OnInit {
 		dialogRef.afterClosed().subscribe(result => {
 			this.dataSource.data = [];                     // need this to coax rerendering
 			this.dataSource.data = this.dataService.data;  // of the html.
-			console.log('The dialog was closed, right?', this.dataSource.data);
 		});
 	}
 
-	drop(event: CdkDragDrop<string[]>) {
-		//moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+	// drop(event: CdkDragDrop<any>) {
+	// 	console.log("dopped", event)
+	// 	//moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+	// }
+
+	toggle(guid:string) {
+		this.numberChecked += 1;
+		console.log("checked", guid, this.numberChecked);
+		if (this.numberChecked >= 2) {
+			this.numberChecked = 0;
+		}
 	}
 
 	hasChild = (_: number, node: TaskNode) => !!node.children && node.children.length > 0;

@@ -5,7 +5,8 @@
 		"children": [
 			{
 				"guid": "53f8-f182-4a66",
-				"name": "Addresses"
+				"name": "Addresses",
+				"children": []
 			},
 			{
 				"guid": "132b-aca7-01af",
@@ -14,19 +15,23 @@
 					{
 						"guid": "3544-b201-50f1",
 						"name": "site A",
+						"children": [],
 						"value": "sadasd"},
 					{
 						"guid": "3725-a9b9-3ffe",
 						"name": "site B",
+						"children": [],
 						"value": "zxczxvxv"},
 					{
 						"guid": "e742-024c-42ce",
 						"name": "site C",
+						"children": [],
 						"value": "adfyhdfg"}
 				]},
 			{
 				"guid": "7586-2c76-31d9",
-				"name": "Things to remember"
+				"name": "Things to remember",
+				"children": []
 			}
 		]
 	},
@@ -40,10 +45,12 @@
 				"children": [
 					{
 						"guid": "cbea-0179-a0af",
-						"name": "Home"},
+						"name": "Home",
+						"children": []},
 					{
 						"guid": "1ed8-d9a2-854e",
-						"name": "Career"
+						"name": "Career",
+						"children": []
 					}
 				]
 			}, {
@@ -52,11 +59,13 @@
 				"children": [
 					{
 						"guid": "678f-5f69-59c0",
-						"name": "Ptruth"
+						"name": "Ptruth",
+						"children": []
 					},
 					{
 						"guid": "d016-a5e2-da79",
-						"name": "Cog"
+						"name": "Cog",
+						"children": []
 					}
 				]
 			}
