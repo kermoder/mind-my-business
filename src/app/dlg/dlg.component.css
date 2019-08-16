@@ -1,0 +1,19 @@
+
+
+section {
+	font-family: helvetica;
+}
+
+div.field {
+	padding: 1em;
+}
+
+div.field label {
+	display: inline-block;
+	min-width: 4em;
+}
+
+div.field input {
+	min-width: 15em;
+	height: 2em;
+}
