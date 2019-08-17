@@ -29,12 +29,14 @@ export class TaskComponent implements OnInit {
 	treeControl = new NestedTreeControl<TaskNode>(node => node.children);
 	dataSource = new MatTreeNestedDataSource<TaskNode>();
 	dataService: DataService;
-	numberChecked: number;
+	guid0: string
+	guid1: string
 
 	constructor(private ds : DataService, 
 				public dialog: MatDialog) { 
 		this.dataService = ds;
-		this.numberChecked = 0;
+		this.guid0 = null;
+		this.guid1 = null;
 		// generate a few guids
 		// for (var i=0; i<10; i++){
 		// 	console.log(this.dataService.guid())
@@ -61,17 +63,32 @@ export class TaskComponent implements OnInit {
 		});
 	}
 
-	// drop(event: CdkDragDrop<any>) {
-	// 	console.log("dopped", event)
-	// 	//moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
-	// }
-
 	toggle(guid:string) {
-		this.numberChecked += 1;
-		console.log("checked", guid, this.numberChecked);
-		if (this.numberChecked >= 2) {
-			this.numberChecked = 0;
+		console.log("guid", guid);
+		if (this.guid0 == null) {
+			this.guid0 = guid;
+			console.log("returning");
+			return;
+		} else if (guid != this.guid1)
+			this.guid1 = guid;
+		console.log("A");
+		var tn0 = this.dataService.taskNode(this.guid0, this.dataService.data, true);
+		if (tn0 === null) {
+			console.log("B");
+			return;
 		}
+		var tn1 = this.dataService.taskNode(this.guid1, this.dataService.data, false);
+		console.log("C", tn1);
+		if (tn1 === null) {
+			console.log("C1");
+			return;
+		}
+		tn1.children.push(tn0);
+		this.dataSource.data = [];                     // need this to coax rerendering
+		this.dataSource.data = this.dataService.data;  // of the html.
+		console.log("D");
+		this.guid0 = null;
+		this.guid1 = null;
 	}
 
 	hasChild = (_: number, node: TaskNode) => !!node.children && node.children.length > 0;

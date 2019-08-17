@@ -88,7 +88,7 @@ export class DataService {
 				if (deleteIt){
 					console.log("deleting ", o.name);
 					arr.splice(i, 1);
-					return null;
+					return o;
 				}
 				return o;
 			}
